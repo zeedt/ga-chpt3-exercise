@@ -13,8 +13,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run Lint
-        run: npm eslint --ext .jsx --fix src
-  test: 
+        run: npm lint
+  test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get code from repository
@@ -26,8 +27,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run Test
-        run: npm vitest run 
+        run: npm test 
   deploy: 
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code from repository
